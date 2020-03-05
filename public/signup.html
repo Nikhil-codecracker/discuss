@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+        <meta name="google-signin-client_id" content="84630681315-jbula5mbsvmk31nd6l6kilb8k9ego494.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="signup.css">
+    </head>
+    <body>
+        <div id="navbar">
+            <a href="#"><button class="hb" id="b1">Sign up</button></a>
+            <a href="dicuss.html"><button class="hb" id="b2">Log in</button></a>
+        </div>
+        <div id="box">
+            <div id="gs"><div id="my-signin2"></div></div>
+            <button class="b" id="github">
+                <p><a href="#" class="fa fa-github social"></a> Sign up with Github</p>
+            </button><br>
+            <button class="b" id="facebook">
+                <p><a href="#" class="fa fa-facebook social"></a> Sign up with Facebook</p>
+            </button>
+            <div id="container">
+                <form id="form" action="/user/signup" method="POST">
+                    <label><b>Display Name</b></label>
+                    <input type="text" id="name" class="input" name="name"><br>
+                    <label><b>Email</b></label><br>
+                    <input type="email" id="email" class="input" name="email"><br>
+                    <label><b>Password</b></label><br>
+                    <input type="password" id="password" class="input" name="password"><br>
+                    <button id="login">Sign up</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            function onSuccess(googleUser) {
+                console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+            }
+            function onFailure(error) {
+                console.log(error);
+            }
+            function renderButton() {
+                gapi.signin2.render('my-signin2', {
+                    'scope': 'profile email',
+                    'width': 290,
+                    'height': 38,
+                    'longtitle': true,
+                    'theme': 'light',
+                    'onsuccess': onSuccess,
+                    'onfailure': onFailure
+                });
+            }
+            var xhttp = new XMLHttpRequest();
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                xhttp.open("POST", "/login", true);
+                xhttp.send();
+                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            }
+        </script>
+    </body>
+</html>

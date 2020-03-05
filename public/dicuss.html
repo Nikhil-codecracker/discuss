@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+        
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="navbar">
+            <a href="signup.html"><button class="hb" id="b1">Sign up</button></a>
+            <a href="#"><button class="hb" id="b2">Log in</button></a>
+        </div>
+        <div id="box">
+            <div class="g-signin2" data-onsuccess="onSignIn" class="b" id="google">
+                <p><a href="#" class="fa fa-google social"></a> Log in with Google</p>
+           </div><br>
+            <button class="b" id="github">
+                <p><a href="#" class="fa fa-github social"></a> Log in with Github</p>
+            </button><br>
+            <button class="b" id="facebook">
+                <p><a href="#" class="fa fa-facebook social"></a> Log in with Facebook</p>
+            </button>
+            <div id="container">
+                <form id="form" action="/user/login" method="POST">
+                    <label><b>Email</b></label><br>
+                    <input type="email" id="email" class="input" name="email"><br>
+                    <label><b>Password</b></label><br>
+                    <input type="password" id="password" class="input" name="password"><br>
+                    <button id="login">Log in</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            $('#login').on('click',function(){
+                $.ajax({
+                    url: "http://localhost:3000/user/login",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                                "Authorization": "Bearer " + $('#tokenField').val()
+                            },
+                    async: false
+                });
+            });
+        </script>
+    </body>
+</html>
